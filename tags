@@ -24,7 +24,7 @@ OBJS	Makefile	/^OBJS:=$(patsubst $(SRC)\/%.c, $(OBJ)\/%.o, $(SRCS))$/;"	m
 PIG_COMPILER_H	include/compiler.h	/^#define PIG_COMPILER_H$/;"	d
 SRC	Makefile	/^SRC:=src$/;"	m
 SRCS	Makefile	/^SRCS:=$(shell find $(SRC) -type  f -name "*.c")$/;"	m
-TARGET	Makefile	/^TARGET:=$(BIN)\/PigSpeak$/;"	m
+TARGET	Makefile	/^TARGET:=$(BIN)\/compiler.out$/;"	m
 all	Makefile	/^all: dirs $(TARGET)$/;"	t
 clean	Makefile	/^clean:$/;"	t
 compiler	README.md	/^# compiler$/;"	c

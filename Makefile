@@ -8,7 +8,7 @@ BIN:=bin
 OBJ:=obj
 SRC:=src
 
-TARGET:=$(BIN)/PigSpeak
+TARGET:=$(BIN)/compiler.out
 
 SRCS:=$(shell find $(SRC) -type  f -name "*.c")
 OBJS:=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
