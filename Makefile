@@ -7,11 +7,13 @@ LDFLAGS:=
 BIN:=bin
 OBJ:=obj
 SRC:=src
+INCLUDE:=include
 
 TARGET:=$(BIN)/compiler.out
 
 SRCS:=$(shell find $(SRC) -type  f -name "*.c")
 OBJS:=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
+INCLUDES:=$(shell find $(INCLUDE) -type f -name "*.h")
 
 DIRS:=$(patsubst $(SRC)/%, $(OBJ)/%, $(shell find $(SRC)/ -mindepth 1 -type d))
 
@@ -44,3 +46,7 @@ valgrind:
          --verbose \
          --log-file=valgrind-out.txt \
          ./$(TARGET)
+
+format:
+	@clang-format $(SRCS) $(INCLUDES) --style=Google -i
+

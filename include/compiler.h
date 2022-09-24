@@ -5,5 +5,4 @@
 
 uint64_t tokenize(char* src, char*** dest);
 
-
 #endif
