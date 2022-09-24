@@ -35,79 +35,12 @@ uint64_t tokenize(char* src, char*** dest) {
   char* temp = src;
 
   while (*temp) {
-    if (isSep(*temp)) {
-      if (buf) {
-        terminateStr(buf, &bufMem);
-        expandArray((*dest), destMem, char*);
-
-        // Add character
-        (*dest)[destMem.size] = buf;
-
-        destMem.memory--;
-        destMem.size++;
-
-        length++;
-      }
-
-      expandArray((*dest), destMem, char*);
-
-      // Add separator
-      char* s = malloc(2);
-      s[0] = *temp;
-      s[1] = 0;
-
-      (*dest)[destMem.size] = s;
-
-      destMem.size++;
-      destMem.memory--;
-
-      // Reset buf
-
-      buf = NULL;
-
-      bufMem.size = 0;
-      bufMem.memory = 0;
-
-      length++;
-    }
-
-    else if (*temp == ' ') {
-      if (buf) {
-        terminateStr(buf, &bufMem);
-        expandArray((*dest), destMem, char*);
-
-        // Add character
-        (*dest)[destMem.size] = buf;
-
-        destMem.memory--;
-        destMem.size++;
-
-        // Reset buf
-        buf = NULL;
-
-        bufMem.size = 0;
-        bufMem.memory = 0;
-
-        length++;
-      }
-    }
-
-    else {
-      expandArray(buf, bufMem, char);
-
-      buf[bufMem.size] = *temp;
-
-      bufMem.size++;
-      bufMem.memory--;
-    }
+		
+		// TODO: Fix the bloody function
 
     temp++;
   }
 
-    terminateStr(buf, &bufMem);
-    expandArray((*dest), destMem, char*);
-
-    (*dest)[destMem.size] = buf;
 
   return length + 1;
 }
