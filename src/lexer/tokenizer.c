@@ -46,15 +46,15 @@ char* insertSpace(char* src) {
       *temp = ' ';
 
       temp++;
-			
+
       memmove(temp + 2, temp + 1, strlen(temp + 1) + 1);
       *(temp + 1) = ' ';
     }
 
     temp++;
   }
-	
-	return src;
+
+  return src;
 }
 
 uint64_t tokenize(char* src, char*** dest) {
@@ -64,14 +64,13 @@ uint64_t tokenize(char* src, char*** dest) {
 
   char* temp = malloc(strlen(src) + 1);
   strcpy(temp, src);
-	
+
   temp = insertSpace(temp);
-	src = temp;
+  src = temp;
 
   printf("%s\n", temp);
 
-	
-	free(src);
+  free(src);
 
   return destMem.size + 1;
 }
