@@ -17,11 +17,5 @@ int main(int argc, char** argv) {
 
   int count = tokenize(argv[1], &dest);
 
-  for (int i = 0; i < count; i++) {
-    printf("\"%s\" ", dest[i]);
-  }
-
-  printf("\n");
-
   return 0;
 }

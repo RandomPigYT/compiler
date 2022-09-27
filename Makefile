@@ -45,7 +45,7 @@ valgrind:
          --track-origins=yes \
          --verbose \
          --log-file=valgrind-out.txt \
-         ./$(TARGET)
+         ./$(TARGET)	"for(int i = 0; i < 10; i++){"
 
 format:
 	@clang-format $(SRCS) $(INCLUDES) --style=Google -i

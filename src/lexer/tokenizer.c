@@ -25,89 +25,53 @@ void terminateStr(char* str, Memory* mem) {
   mem->memory--;
 }
 
-uint64_t tokenize(char* src, char*** dest) {
-  uint64_t length = 0;
-
-  char* buf = NULL;
-  Memory bufMem = {.memory = 0, .size = 0};
-  Memory destMem = {.size = 0, .memory = 0};
-
+char* insertSpace(char* src) {
   char* temp = src;
 
+  // Find the number of separators
+  uint64_t count = 0;
   while (*temp) {
-    if (isSep(*temp)) {
-      if (buf) {
-        terminateStr(buf, &bufMem);
-        expandArray((*dest), destMem, char*);
-
-        // Add character
-        (*dest)[destMem.size] = buf;
-
-        destMem.memory--;
-        destMem.size++;
-
-        length++;
-      }
-
-      expandArray((*dest), destMem, char*);
-
-      // Add separator
-      char* s = malloc(2);
-      s[0] = *temp;
-      s[1] = 0;
-
-      (*dest)[destMem.size] = s;
-
-      destMem.size++;
-      destMem.memory--;
-
-      // Reset buf
-
-      buf = NULL;
-
-      bufMem.size = 0;
-      bufMem.memory = 0;
-
-      length++;
-    }
-
-    else if (*temp == ' ') {
-      if (buf) {
-        terminateStr(buf, &bufMem);
-        expandArray((*dest), destMem, char*);
-
-        // Add character
-        (*dest)[destMem.size] = buf;
-
-        destMem.memory--;
-        destMem.size++;
-
-        // Reset buf
-        buf = NULL;
-
-        bufMem.size = 0;
-        bufMem.memory = 0;
-
-        length++;
-      }
-    }
-
-    else {
-      expandArray(buf, bufMem, char);
-
-      buf[bufMem.size] = *temp;
-
-      bufMem.size++;
-      bufMem.memory--;
-    }
+    if (isSep(*temp)) count++;
 
     temp++;
   }
 
-    terminateStr(buf, &bufMem);
-    expandArray((*dest), destMem, char*);
+  src = realloc(src, 2 * (strlen(src) + 1 + count));
 
-    (*dest)[destMem.size] = buf;
+  temp = src;
 
-  return length + 1;
+  while (*temp) {
+    if (isSep(*temp)) {
+      memmove(temp + 1, temp, strlen(temp) + 1);
+      *temp = ' ';
+
+      temp++;
+			
+      memmove(temp + 2, temp + 1, strlen(temp + 1) + 1);
+      *(temp + 1) = ' ';
+    }
+
+    temp++;
+  }
+	
+	return src;
+}
+
+uint64_t tokenize(char* src, char*** dest) {
+  char* buf = NULL;
+  Memory bufMem = {.memory = 0, .size = 0};
+  Memory destMem = {.size = 0, .memory = 0};
+
+  char* temp = malloc(strlen(src) + 1);
+  strcpy(temp, src);
+	
+  temp = insertSpace(temp);
+	src = temp;
+
+  printf("%s\n", temp);
+
+	
+	free(src);
+
+  return destMem.size + 1;
 }
