@@ -57,7 +57,7 @@ char* insertSpace(char* src) {
   return src;
 }
 
-uint64_t tokenize(char* src, char*** dest) {
+char** tokenize(char* src, char** dest, uint64_t* len) {
   char* buf = NULL;
   Memory bufMem = {.memory = 0, .size = 0};
   Memory destMem = {.size = 0, .memory = 0};
@@ -68,9 +68,47 @@ uint64_t tokenize(char* src, char*** dest) {
   temp = insertSpace(temp);
   src = temp;
 
-  printf("%s\n", temp);
+  while (*temp) {
+    if (*temp != ' ') {
+      expandArray(buf, bufMem, char);
+
+      buf[bufMem.size] = *temp;
+
+      bufMem.size++;
+      bufMem.memory--;
+
+    }
+
+    else if (*temp == ' ' && *(temp + 1) != ' ') {
+      terminateStr(buf, &bufMem);
+
+      expandArray(dest, destMem, char*);
+
+      dest[destMem.size] = buf;
+      destMem.size++;
+      destMem.memory--;
+
+      buf = NULL;
+      bufMem.size = 0;
+      bufMem.memory = 0;
+    }
+
+    temp++;
+  }
+
+  if (buf != NULL) {
+    terminateStr(buf, &bufMem);
+    expandArray(dest, destMem, char*);
+
+    dest[destMem.size] = buf;
+
+		destMem.size++;
+		destMem.memory--;
+
+  }
 
   free(src);
 
-  return destMem.size + 1;
+	*len = destMem.size;
+  return dest;
 }

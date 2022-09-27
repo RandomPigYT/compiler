@@ -15,7 +15,15 @@ int main(int argc, char** argv) {
 
   char** dest = NULL;
 
-  int count = tokenize(argv[1], &dest);
+  uint64_t* count;
+
+	dest = tokenize(argv[1], dest, count);
+
+  for (int i = 0; i < *count; i++) {
+    printf("\"%s\" ", dest[i]);
+  }
+
+  printf("\n");
 
   return 0;
 }

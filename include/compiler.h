@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-uint64_t tokenize(char* src, char*** dest);
+char** tokenize(char* src, char** dest, uint64_t* len);
 
 #endif
